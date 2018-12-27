@@ -1,0 +1,13 @@
+<div>
+  <h3>Add New Address Book</h3>
+
+  <app-add-new (showAddressBook)="showAddressBook()"></app-add-new>
+</div>
+<br />
+<div class="flex">
+  <app-single-item
+    *ngFor="let singleItem of addressBook"
+    [singleItem]="singleItem"
+    (showAddressBook)="showAddressBook()"
+  ></app-single-item>
+</div>
