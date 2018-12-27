@@ -9,7 +9,7 @@ import { AddressBookService } from "../../address-book.service";
 })
 export class SingleItemComponent implements OnInit {
   @Input() singleItem: singleItem;
-  @Output() showAddressBook = new EventEmitter<any>();
+  @Output() showAddressBooks = new EventEmitter<any>();
 
   constructor(private addressBookService: AddressBookService) {}
 
@@ -17,7 +17,7 @@ export class SingleItemComponent implements OnInit {
     this.addressBookService
       .deleteAddressBook(this.singleItem.id)
       .subscribe(res => {
-        this.showAddressBook.emit();
+        this.showAddressBooks.emit();
       });
   }
 

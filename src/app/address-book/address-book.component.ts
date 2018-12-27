@@ -13,6 +13,7 @@ export class AddressBookComponent implements OnInit {
 
   showAddressBook() {
     this.addressBookService.getAddressBook().subscribe(res => {
+      console.log(res);
       if (res !== null) {
         let getAddressBooks = [];
         for (let arr in res) {
@@ -20,6 +21,8 @@ export class AddressBookComponent implements OnInit {
           getAddressBooks.push(newArr);
         }
         this.addressBook = getAddressBooks;
+      } else {
+        this.addressBook = [];
       }
     });
   }
