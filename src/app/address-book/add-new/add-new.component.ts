@@ -25,6 +25,8 @@ export class AddNewComponent implements OnInit {
     company: { name: "", catchPhrase: "", bs: "" }
   };
 
+  @Output() showAddressBook = new EventEmitter<any>();
+
   constructor(
     private addressBookService: AddressBookService,
     private route: ActivatedRoute,
@@ -40,25 +42,25 @@ export class AddNewComponent implements OnInit {
       });
   }
 
-  @Output() showAddressBook = new EventEmitter<any>();
-
-  onSubmit(formValue) {
-    if (this.route.snapshot.url.toString().includes(`edit`)) {
-      this.updateAddressBook();
-    } else {
-      this.postAddressBook();
-    }
-  }
-
   updateAddressBook() {
     this.addressBookService
       .updateAddressBook(
         JSON.stringify(this.singleItemPost),
-        this.singleItemPost.id
+        this.route.snapshot.params.id
       )
       .subscribe(res => {
         this.router.navigate([""]);
       });
+  }
+
+  onSubmit(formValue) {
+    if (this.route.snapshot.url.toString().includes(`edit`)) {
+      // console.log("put");
+      this.updateAddressBook();
+    } else {
+      // console.log("post");
+      this.postAddressBook();
+    }
   }
 
   ngOnInit() {
