@@ -8,12 +8,14 @@ import { AddressBookService } from "../address-book.service";
 })
 export class AddressBookComponent implements OnInit {
   addressBook: any[] = [];
+  filteredBook: any[] = [];
+
+  search: string = "";
 
   constructor(private addressBookService: AddressBookService) {}
 
   showAddressBook() {
     this.addressBookService.getAddressBook().subscribe(res => {
-      console.log(res);
       if (res !== null) {
         let getAddressBooks = [];
         for (let arr in res) {
@@ -25,6 +27,27 @@ export class AddressBookComponent implements OnInit {
         this.addressBook = [];
       }
     });
+  }
+
+  onSearch(searchPhrase) {
+    const copy = this.addressBook.slice();
+    const filtered = copy.filter(
+      arr =>
+        arr.name.includes(searchPhrase) ||
+        arr.email.includes(searchPhrase) ||
+        arr.phone.includes(searchPhrase) ||
+        arr.username.includes(searchPhrase) ||
+        arr.website.includes(searchPhrase) ||
+        arr.address.city.includes(searchPhrase) ||
+        arr.address.street.includes(searchPhrase) ||
+        arr.address.suite.includes(searchPhrase) ||
+        arr.address.zipcode.includes(searchPhrase) ||
+        arr.company.name.includes(searchPhrase) ||
+        arr.company.bs.includes(searchPhrase) ||
+        arr.company.catchPhrase.includes(searchPhrase)
+    );
+    console.log(filtered);
+    this.filteredBook = filtered;
   }
 
   // post() {
