@@ -6,14 +6,13 @@
 <br />
 <hr />
 <h3>Search</h3>
-<form #searchForm="ngForm" (ngSubmit)="onSearch(search)">
-  <input name="search" type="text" [(ngModel)]="search" />
-  <input type="submit" value="Search" />
-</form>
+<input name="search" type="text" #searchValue />
+<button (click)="onSearch(searchValue)">Submit</button>
+
 <hr />
 <br />
 
-<div class="flex" *ngIf="filteredBook.length === 0">
+<div class="flex" *ngIf="search === ''">
   <app-single-item
     *ngFor="let singleItem of addressBook"
     [singleItem]="singleItem"
@@ -21,10 +20,15 @@
   ></app-single-item>
 </div>
 
-<div class="flex" *ngIf="filteredBook.length > 0">
+<div class="flex" *ngIf="search !== '' && filteredBook.length > 0">
   <app-single-item
     *ngFor="let singleItem of filteredBook"
     [singleItem]="singleItem"
     (showAddressBooks)="showAddressBook()"
   ></app-single-item>
 </div>
+
+<div class="notFound" *ngIf="search !== '' && filteredBook.length === 0">
+  Contact Not Found
+</div>
+<br />

@@ -33,12 +33,12 @@ export class AddNewComponent implements OnInit {
     private router: Router
   ) {}
 
-  postAddressBook() {
+  postAddressBook(formRef) {
     this.addressBookService
       .postAddressBook(JSON.stringify(this.singleItemPost))
       .subscribe(res => {
         this.showAddressBook.emit();
-        console.log(res);
+        formRef.reset();
       });
   }
 
@@ -53,13 +53,13 @@ export class AddNewComponent implements OnInit {
       });
   }
 
-  onSubmit(formValue) {
+  onSubmit(formRef) {
     if (this.route.snapshot.url.toString().includes(`edit`)) {
       // console.log("put");
       this.updateAddressBook();
     } else {
       // console.log("post");
-      this.postAddressBook();
+      this.postAddressBook(formRef);
     }
   }
 

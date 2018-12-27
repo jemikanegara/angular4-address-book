@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AddressBookService } from "../address-book.service";
 
 @Component({
@@ -30,21 +30,22 @@ export class AddressBookComponent implements OnInit {
   }
 
   onSearch(searchPhrase) {
+    this.search = searchPhrase.value;
     const copy = this.addressBook.slice();
     const filtered = copy.filter(
       arr =>
-        arr.name.includes(searchPhrase) ||
-        arr.email.includes(searchPhrase) ||
-        arr.phone.includes(searchPhrase) ||
-        arr.username.includes(searchPhrase) ||
-        arr.website.includes(searchPhrase) ||
-        arr.address.city.includes(searchPhrase) ||
-        arr.address.street.includes(searchPhrase) ||
-        arr.address.suite.includes(searchPhrase) ||
-        arr.address.zipcode.includes(searchPhrase) ||
-        arr.company.name.includes(searchPhrase) ||
-        arr.company.bs.includes(searchPhrase) ||
-        arr.company.catchPhrase.includes(searchPhrase)
+        arr.name.includes(this.search) ||
+        arr.email.includes(this.search) ||
+        arr.phone.includes(this.search) ||
+        arr.username.includes(this.search) ||
+        arr.website.includes(this.search) ||
+        arr.address.city.includes(this.search) ||
+        arr.address.street.includes(this.search) ||
+        arr.address.suite.includes(this.search) ||
+        arr.address.zipcode.includes(this.search) ||
+        arr.company.name.includes(this.search) ||
+        arr.company.bs.includes(this.search) ||
+        arr.company.catchPhrase.includes(this.search)
     );
     console.log(filtered);
     this.filteredBook = filtered;
